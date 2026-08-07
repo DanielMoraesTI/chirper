@@ -35,6 +35,22 @@ class User extends Authenticatable
     ];
 
     /**
+     * Pequeno resumo de cada personagem, exibido no modal de escolha de avatar.
+     * Mesmas chaves de AVATARS.
+     *
+     * @var array<string, string>
+     */
+    public const AVATAR_BIOS = [
+        'crono' => 'O herói silencioso de Guardia. Um espadachim de cabelos ruivos que, num dia comum na Feira do Milênio, acaba arrastado para uma jornada através do tempo.',
+        'marle' => 'Nadia, princesa do Reino de Guardia, foge do castelo disfarçada em busca de aventura. Destemida e gentil, luta com magia de gelo e cura os aliados feridos.',
+        'lucca' => 'Gênia inventora e melhor amiga de Crono desde a infância. Foi seu próprio Teleportador que abriu a fresta no tempo. Racional, leal e corajosa, luta com armas que ela mesma constrói.',
+        'frog' => 'Glenn, um cavaleiro anfíbio amaldiçoado. Outrora um jovem escudeiro inseguro, hoje empunha a lendária espada Masamune com honra, em busca de redenção e vingança.',
+        'robo' => 'Um robô construído numa era futura devastada, encontrado desativado e reparado pelo grupo. Gentil e leal, questiona o que significa ter um propósito além de servir.',
+        'ayla' => 'Líder da tribo Ioka na Era Pré-Histórica. Guerreira de força descomunal, enfrenta os Reptites de mãos nuas para proteger seu povo.',
+        'magus' => 'Poderoso feiticeiro sombrio que já comandou um exército contra a humanidade. Move-se por uma busca pessoal de vingança que o liga ao destino do mundo.',
+    ];
+
+    /**
      * Caminho público da imagem do avatar do usuário.
      */
     public function avatarUrl(): string

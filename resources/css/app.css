@@ -502,8 +502,7 @@ html[data-theme="chronoTrigger"] .avatar img {
     box-shadow: 0 0 0 2px var(--color-base-300);
 }
 
-/* Personagem escolhido pelo usuário nos pensamentos: sem moldura/fundo,
-   apenas o sprite com fundo transparente, nítido em tamanho maior */
+/* Personagem escolhido pelo usuário nos pensamentos */
 html[data-theme="chronoTrigger"] .chirp-avatar img {
     image-rendering: pixelated;
 }
@@ -514,10 +513,6 @@ html[data-theme="chronoTrigger"] .hero-poster {
     width: 100vw;
     margin-left: -50vw;
     background-color: var(--color-base-200);
-    background-image: url('../../public/images/chrono-trigger/equipe.png');
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-size: clamp(500px, 55vw, 1200px) auto;
     border-radius: 0;
 }
 
@@ -534,7 +529,14 @@ html[data-theme="chronoTrigger"] .hero-poster-image-col {
     flex: 0 0 auto;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
+    html[data-theme="chronoTrigger"] .hero-poster {
+        background-image: url('../../public/images/chrono-trigger/equipe.png');
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: clamp(500px, 55vw, 1200px) auto;
+    }
+
     html[data-theme="chronoTrigger"] .hero-poster-image-col {
         display: block;
         width: clamp(500px, 55vw, 1200px);
@@ -593,6 +595,84 @@ html[data-theme="chronoTrigger"] .rpg-cursor {
     display: inline-block;
     animation: cursor-blink 1s steps(1) infinite;
     color: var(--color-primary);
+}
+
+/* Modal de história do personagem — janela de diálogo estilo RPG */
+html[data-theme="chronoTrigger"] dialog.modal::backdrop {
+    background: rgba(5, 6, 16, .8);
+}
+
+html[data-theme="chronoTrigger"] .avatar-lore-box {
+    --step: var(--pixel-step);
+    position: relative;
+    isolation: isolate;
+    max-width: 26rem;
+    overflow: visible;
+    background: linear-gradient(180deg, var(--color-base-50), var(--color-base-100));
+    color: var(--text-12);
+    border: var(--border) solid var(--border-color-gold);
+    border-radius: 0;
+    box-shadow: none !important;
+    clip-path: polygon(0 var(--step),
+            var(--step) var(--step),
+            var(--step) 0,
+            calc(100% - var(--step)) 0,
+            calc(100% - var(--step)) var(--step),
+            100% var(--step),
+            100% calc(100% - var(--step)),
+            calc(100% - var(--step)) calc(100% - var(--step)),
+            calc(100% - var(--step)) 100%,
+            var(--step) 100%,
+            var(--step) calc(100% - var(--step)),
+            0 calc(100% - var(--step)));
+}
+
+html[data-theme="chronoTrigger"] .avatar-lore-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, .55);
+    clip-path: inherit;
+    transform: translate(6px, 6px);
+}
+
+html[data-theme="chronoTrigger"] .avatar-lore-portrait {
+    display: flex;
+    justify-content: center;
+    margin-bottom: .5rem;
+}
+
+html[data-theme="chronoTrigger"] .avatar-lore-portrait img {
+    height: 6rem;
+    width: auto;
+    image-rendering: pixelated;
+    filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, .4));
+}
+
+html[data-theme="chronoTrigger"] .avatar-lore-name {
+    font-family: var(--font-pixel) !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    color: var(--color-primary);
+    text-align: center;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, .45);
+    margin-bottom: .75rem;
+}
+
+html[data-theme="chronoTrigger"] .avatar-lore-bio {
+    font-family: var(--font-retro);
+    font-size: 1.25rem;
+    line-height: 1.45;
+    color: var(--text-12);
+    border: 2px solid var(--border-color-soft);
+    background: rgba(0, 0, 0, .25);
+    padding: .75rem 1rem;
+}
+
+html[data-theme="chronoTrigger"] .avatar-lore-bio::before {
+    content: "▸ ";
+    color: var(--color-secondary);
 }
 
 /* Scrollbar temática (WebKit) */
