@@ -205,15 +205,12 @@ html[data-theme="chronoTrigger"] .navbar {
 /* Grupo de heróis, centralizado no cabeçalho — moldura de "retrato de grupo" */
 html[data-theme="chronoTrigger"] .navbar-party-frame {
     padding: 3px;
-    border: 2px solid var(--border-color-gold);
-    background: var(--color-base-300);
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, .5);
     line-height: 0;
 }
 
 html[data-theme="chronoTrigger"] .navbar-party {
     display: block;
-    height: 3.25rem;
+    height: 3.5rem;
     width: auto;
     image-rendering: pixelated;
 }
@@ -542,11 +539,97 @@ html[data-theme="chronoTrigger"] .hero-poster {
     width: 100vw;
     margin-left: -50vw;
     background-color: var(--color-base-200);
-    background-image: url('../../public/images/chrono-trigger/title-poster.webp');
+    background-image: url('../../public/images/chrono-trigger/equipe.png');
     background-repeat: no-repeat;
     background-position: right center;
     background-size: clamp(500px, 55vw, 1200px) auto;
     border-radius: 0;
+}
+
+/* Duas colunas dentro de .hero-content (telas de Entrar/Cadastro):
+   .hero-poster-card-col cresce e centraliza o card nela mesma;
+   .hero-poster-image-col é um espaçador vazio (sem conteúdo) do mesmo
+   tamanho do background-size do pôster acima, só para "empurrar" a
+   coluna do card para a metade livre à esquerda.
+
+   Precisa ser assim, em vez de simplesmente encolher a largura do
+   .hero-content: o .hero do daisyUI centraliza o .hero-content inteiro
+   dentro da área do hero, então só reduzir a largura dele faz esse bloco
+   menor ser recentralizado no meio da tela toda — voltando a sobrepor o
+   pôster. Com o espaçador como segundo filho, o .hero-content continua
+   ocupando a largura toda (nada pra centralizar) e a divisão em colunas
+   fica por conta do flex interno.
+
+   Abaixo do breakpoint sm o espaçador é removido (pôster já sai quase
+   todo da viewport) e o card centraliza sozinho na largura toda. */
+html[data-theme="chronoTrigger"] .hero-poster-card-col {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+
+html[data-theme="chronoTrigger"] .hero-poster-image-col {
+    display: none;
+    flex: 0 0 auto;
+}
+
+@media (min-width: 640px) {
+    html[data-theme="chronoTrigger"] .hero-poster-image-col {
+        display: block;
+        width: clamp(500px, 55vw, 1200px);
+    }
+}
+
+/* Página principal (feed): 3 divs lado a lado — coluna de personagem à
+   esquerda (Crono), conteúdo central (form + feed, inalterado) e coluna de
+   personagem à direita (Marle). As colunas laterais dividem o espaço
+   sobrando de forma proporcional (1fr cada) e ficam ocultas em telas
+   estreitas, onde não há espaço pra elas sem espremer o conteúdo central. */
+.feed-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .feed-columns {
+        grid-template-columns: 1fr minmax(0, 42rem) 1fr;
+    }
+}
+
+.feed-side-col {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .feed-side-col {
+        display: flex;
+        justify-content: center;
+        padding-top: 2rem;
+    }
+
+    .feed-side-col--left {
+        justify-content: flex-start;
+    }
+
+    .feed-side-col--right {
+        justify-content: flex-end;
+    }
+}
+
+/* Retratos de Crono/Marle: mix-blend-mode "dissolve" o fundo branco das
+   artes originais no cenário estrelado por trás, sem precisar editar os
+   arquivos de imagem. */
+html[data-theme="chronoTrigger"] .side-character-img {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    mix-blend-mode: multiply;
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, .35));
 }
 
 /* Ícone do estado vazio (feed sem pensamentos) */
