@@ -63,8 +63,8 @@
         </div>
 
         <div class="feed-side-col feed-side-col--right">
-            <img src="{{ asset('images/chrono-trigger/marle.png') }}"
-                 alt="Marle"
+            <img src="{{ asset('images/chrono-trigger/lucca.png') }}"
+                 alt="Lucca"
                  class="side-character-img">
         </div>
     </div>

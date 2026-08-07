@@ -4,11 +4,10 @@
     <div class="card-body">
         <div class="flex space-x-3">
             @if ($chirp->user)
-                <div class="avatar">
-                    <div class="size-10 rounded-full">
-                        <img src="https://avatars.laravel.cloud/{{ urlencode($chirp->user->email) }}"
-                            alt="{{ $chirp->user->name }}'s avatar" class="rounded-full" />
-                    </div>
+                <div class="chirp-avatar shrink-0">
+                    <img src="{{ $chirp->user->avatarUrl() }}"
+                        alt="Personagem de {{ $chirp->user->name }}: {{ \App\Models\User::AVATARS[$chirp->user->avatar] ?? 'Crono' }}"
+                        class="h-14 w-auto object-contain" />
                 </div>
             @else
                 <div class="avatar placeholder">

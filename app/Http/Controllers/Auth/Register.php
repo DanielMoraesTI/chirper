@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class Register extends Controller
 {
@@ -17,6 +18,7 @@ class Register extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'avatar' => ['required', 'string', Rule::in(array_keys(User::AVATARS))],
         ]);
 
         // Create the user
@@ -24,6 +26,7 @@ class Register extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'avatar' => $validated['avatar'],
         ]);
 
         // Log them in

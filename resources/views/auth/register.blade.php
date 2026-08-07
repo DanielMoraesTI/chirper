@@ -61,6 +61,17 @@
                                 </div>
                             @enderror
 
+                            <!-- Avatar (personagem) -->
+                            <div class="mb-2">
+                                <span class="label-text block mb-2">Escolha seu personagem</span>
+                                <x-avatar-picker />
+                            </div>
+                            @error('avatar')
+                                <div class="label -mt-2 mb-2">
+                                    <span class="label-text-alt text-error">{{ $message }}</span>
+                                </div>
+                            @enderror
+
                             <!-- Password Confirmation -->
                             <label class="floating-label mb-6">
                                 <input type="password"

@@ -25,8 +25,7 @@
 /* ============================================================
    CHRONO CHIRPER THEME
    Reskin inspirado em RPGs 16-bit dos anos 90 (Chrono Trigger).
-   Apenas estética: cores, fontes, bordas e efeitos. Nenhuma
-   estrutura, rota, form ou lógica é alterada por este arquivo.
+   Apenas estética: cores, fontes, bordas e efeitos.
    ============================================================ */
 
 :root:has(input.theme-controller[value=chronoTrigger]:checked),
@@ -102,9 +101,6 @@
 /* Base da página: gradiente noturno (cobre a página inteira, sem "costuras") */
 html[data-theme="chronoTrigger"] body {
     position: relative;
-    /* .hero-poster (fundo de Entrar/Inscrever-se) usa 100vw para escapar
-       do container central da página; overflow-x evita a barra de
-       rolagem horizontal que isso poderia causar. */
     overflow-x: hidden;
     color: var(--text-12);
     font-family: var(--font-retro);
@@ -113,16 +109,11 @@ html[data-theme="chronoTrigger"] body {
     background-color: var(--color-base-200);
     background-image: linear-gradient(180deg, #0a0c20 0%, #171b46 55%, #241a4d 100%);
     background-repeat: no-repeat;
-    /* Letras mais nítidas: força anti-aliasing suave em vez do fallback
-       "grayscale" grosseiro que o Windows/Chrome usa em textos sobre
-       camadas compostas (filter, transform, etc.) */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
 
-/* Backdrop fixo (do tamanho da viewport, sem "esticar" em páginas longas):
-   estrelas cintilantes por cima de uma cena do mundo de Chrono Trigger */
 html[data-theme="chronoTrigger"] body::before {
     content: "";
     position: fixed;
@@ -270,11 +261,6 @@ html[data-theme="chronoTrigger"] :where(.card) {
             0 calc(100% - var(--step)));
 }
 
-/* Sombra "em degrau" do card feita com pseudo-elemento (em vez de filter:
-   drop-shadow). filter/backdrop-filter em um elemento força o Chrome a
-   renderizar todo o texto dentro dele sem subpixel anti-aliasing, deixando
-   as letras borradas — por isso a navbar já usa backdrop-filter: none.
-   Aqui a sombra fica num ::before atrás do card, sem tocar o texto. */
 html[data-theme="chronoTrigger"] :where(.card)::before {
     content: "";
     position: absolute;
@@ -516,23 +502,12 @@ html[data-theme="chronoTrigger"] .avatar img {
     box-shadow: 0 0 0 2px var(--color-base-300);
 }
 
-/* Pôster de Chrono Trigger ao fundo das telas de Entrar / Inscrever-se.
-   Só nessas duas telas: a classe é .hero-poster (não .hero puro), que
-   também é usado no estado vazio do feed sem levar o pôster.
+/* Personagem escolhido pelo usuário nos pensamentos: sem moldura/fundo,
+   apenas o sprite com fundo transparente, nítido em tamanho maior */
+html[data-theme="chronoTrigger"] .chirp-avatar img {
+    image-rendering: pixelated;
+}
 
-   Sem gradiente escurecendo por cima (mantém brilho original). A
-   arte-fonte tem 900px de largura nativa; aqui ela cresce um pouco além
-   disso (até 1200px, via clamp()) para ocupar mais espaço vertical e
-   horizontal como pedido — leve upscaling, mas ainda nítida o bastante
-   pro tamanho de exibição. Sempre ancorada à direita para não brigar
-   com o card, que fica à esquerda (ver .hero-content nas views de
-   login/registro).
-
-   O .hero-poster também "escapa" do <main class="container mx-auto">
-   que o envolve (esse container tem largura máxima e fica centralizado
-   na página) — sem isso, o pôster e o deslocamento do card ficam presos
-   dentro dessa faixa central estreita e todo o conjunto parece
-   "centralizado" mesmo com o card deslocado para a esquerda dentro dela. */
 html[data-theme="chronoTrigger"] .hero-poster {
     position: relative;
     left: 50%;
@@ -546,22 +521,6 @@ html[data-theme="chronoTrigger"] .hero-poster {
     border-radius: 0;
 }
 
-/* Duas colunas dentro de .hero-content (telas de Entrar/Cadastro):
-   .hero-poster-card-col cresce e centraliza o card nela mesma;
-   .hero-poster-image-col é um espaçador vazio (sem conteúdo) do mesmo
-   tamanho do background-size do pôster acima, só para "empurrar" a
-   coluna do card para a metade livre à esquerda.
-
-   Precisa ser assim, em vez de simplesmente encolher a largura do
-   .hero-content: o .hero do daisyUI centraliza o .hero-content inteiro
-   dentro da área do hero, então só reduzir a largura dele faz esse bloco
-   menor ser recentralizado no meio da tela toda — voltando a sobrepor o
-   pôster. Com o espaçador como segundo filho, o .hero-content continua
-   ocupando a largura toda (nada pra centralizar) e a divisão em colunas
-   fica por conta do flex interno.
-
-   Abaixo do breakpoint sm o espaçador é removido (pôster já sai quase
-   todo da viewport) e o card centraliza sozinho na largura toda. */
 html[data-theme="chronoTrigger"] .hero-poster-card-col {
     display: flex;
     flex: 1 1 auto;
@@ -582,11 +541,6 @@ html[data-theme="chronoTrigger"] .hero-poster-image-col {
     }
 }
 
-/* Página principal (feed): 3 divs lado a lado — coluna de personagem à
-   esquerda (Crono), conteúdo central (form + feed, inalterado) e coluna de
-   personagem à direita (Marle). As colunas laterais dividem o espaço
-   sobrando de forma proporcional (1fr cada) e ficam ocultas em telas
-   estreitas, onde não há espaço pra elas sem espremer o conteúdo central. */
 .feed-columns {
     display: grid;
     grid-template-columns: 1fr;
@@ -620,9 +574,6 @@ html[data-theme="chronoTrigger"] .hero-poster-image-col {
     }
 }
 
-/* Retratos de Crono/Marle: mix-blend-mode "dissolve" o fundo branco das
-   artes originais no cenário estrelado por trás, sem precisar editar os
-   arquivos de imagem. */
 html[data-theme="chronoTrigger"] .side-character-img {
     display: block;
     width: 100%;
