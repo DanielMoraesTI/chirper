@@ -22,12 +22,12 @@ class Login extends Controller
             $request->session()->regenerate();
 
             // Redirect to intended page or home
-            return redirect()->intended('/')->with('success', 'Welcome back!');
+            return redirect()->intended('/')->with('success', 'Bem-vindo de volta!');
         }
 
         // If login fails, redirect back with error
         return back()
-            ->withErrors(['email' => 'The provided credentials do not match our records.'])
+            ->withErrors(['email' => 'As credenciais fornecidas não correspondem aos nossos registros.'])
             ->onlyInput('email');
     }
 }

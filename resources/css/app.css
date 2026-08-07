@@ -21,3 +21,563 @@
         }
     }
 }
+
+/* ============================================================
+   CHRONO CHIRPER THEME
+   Reskin inspirado em RPGs 16-bit dos anos 90 (Chrono Trigger).
+   Apenas estética: cores, fontes, bordas e efeitos. Nenhuma
+   estrutura, rota, form ou lógica é alterada por este arquivo.
+   ============================================================ */
+
+:root:has(input.theme-controller[value=chronoTrigger]:checked),
+[data-theme="chronoTrigger"] {
+    color-scheme: dark;
+
+    --font-pixel: 'Press Start 2P', 'Courier New', monospace;
+    --font-retro: 'VT323', 'Courier New', monospace;
+
+    /* Canvas + text — paleta "mapa-múndi noturno" */
+    --color-base-50: #262c5c;
+    --color-base-100: #1b2050;
+    /* painel / card */
+    --color-base-200: #10132f;
+    /* fundo da página */
+    --color-base-300: #0a0c20;
+    /* rodapé / poços mais escuros */
+    --color-base-content: #f4ecd8;
+    /* pergaminho / creme */
+
+    --text-12: var(--color-base-content);
+    --text-10: color-mix(in oklab, var(--color-base-content) 62%, transparent);
+
+    /* Brand / ações — ouro & ciano de magia */
+    --color-primary: #ffcb3d;
+    --color-primary-content: #241238;
+    --color-secondary: #43d9e8;
+    --color-secondary-content: #0a0c20;
+    --link: #7fe1ff;
+    --link-hover: #ffcb3d;
+
+    --border: 3px;
+    --border-color-soft: #4d5aa8;
+    --border-color-gold: #ffcb3d;
+    --border-color-cyan: #43d9e8;
+
+    --radius-xs: 0px;
+    --radius-sm: 0px;
+    --radius-field: 2px;
+    --radius-box: 0px;
+    --radius-selector: 0px;
+
+    --depth: 1;
+    --noise: 0;
+
+    --pixel-step: 10px;
+    /* tamanho do "degrau" dos cantos pixelados */
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: .5;
+    }
+
+    100% {
+        opacity: .95;
+    }
+}
+
+@keyframes cursor-blink {
+
+    0%,
+    55% {
+        opacity: 1;
+    }
+
+    56%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Base da página: gradiente noturno (cobre a página inteira, sem "costuras") */
+html[data-theme="chronoTrigger"] body {
+    position: relative;
+    /* .hero-poster (fundo de Entrar/Inscrever-se) usa 100vw para escapar
+       do container central da página; overflow-x evita a barra de
+       rolagem horizontal que isso poderia causar. */
+    overflow-x: hidden;
+    color: var(--text-12);
+    font-family: var(--font-retro);
+    font-size: 1.35rem;
+    line-height: 1.4;
+    background-color: var(--color-base-200);
+    background-image: linear-gradient(180deg, #0a0c20 0%, #171b46 55%, #241a4d 100%);
+    background-repeat: no-repeat;
+    /* Letras mais nítidas: força anti-aliasing suave em vez do fallback
+       "grayscale" grosseiro que o Windows/Chrome usa em textos sobre
+       camadas compostas (filter, transform, etc.) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Backdrop fixo (do tamanho da viewport, sem "esticar" em páginas longas):
+   estrelas cintilantes por cima de uma cena do mundo de Chrono Trigger */
+html[data-theme="chronoTrigger"] body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(1.5px 1.5px at 10% 20%, #fff 100%, transparent 100%),
+        radial-gradient(1px 1px at 33% 65%, #cfe8ff 100%, transparent 100%),
+        radial-gradient(2px 2px at 72% 38%, #fff 100%, transparent 100%),
+        radial-gradient(1px 1px at 58% 12%, #ffe9a8 100%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 88% 82%, #fff 100%, transparent 100%),
+        radial-gradient(1px 1px at 22% 88%, #cfe8ff 100%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 48% 45%, #fff 100%, transparent 100%),
+        radial-gradient(1px 1px at 95% 22%, #fff 100%, transparent 100%),
+        linear-gradient(180deg, rgba(10, 12, 32, .55) 0%, rgba(15, 17, 45, .82) 45%, rgba(10, 12, 32, .96) 100%),
+        url('../../public/images/chrono-trigger/overworld-forest.png');
+    background-repeat: repeat, repeat, repeat, repeat, repeat, repeat, repeat, repeat, no-repeat, no-repeat;
+    background-size: 340px 340px, 340px 340px, 340px 340px, 340px 340px, 340px 340px, 340px 340px, 340px 340px, 340px 340px, cover, cover;
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, center, center 25%;
+    animation: twinkle 5s ease-in-out infinite alternate;
+    opacity: .9;
+}
+
+html[data-theme="chronoTrigger"] body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(to bottom,
+            rgba(0, 0, 0, 0) 0px,
+            rgba(0, 0, 0, 0) 1px,
+            rgba(0, 0, 0, .14) 2px,
+            rgba(0, 0, 0, .14) 3px);
+    mix-blend-mode: multiply;
+    opacity: .3;
+}
+
+html[data-theme="chronoTrigger"] .navbar,
+html[data-theme="chronoTrigger"] main,
+html[data-theme="chronoTrigger"] footer.footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Título e cabeçalhos — fonte pixelada, com "sombra de sprite" */
+html[data-theme="chronoTrigger"] h1,
+html[data-theme="chronoTrigger"] h2,
+html[data-theme="chronoTrigger"] h3,
+html[data-theme="chronoTrigger"] h4,
+html[data-theme="chronoTrigger"] h5,
+html[data-theme="chronoTrigger"] h6 {
+    font-family: var(--font-pixel) !important;
+    font-weight: 400 !important;
+    letter-spacing: .5px;
+    line-height: 1.6;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, .45);
+}
+
+html[data-theme="chronoTrigger"] h1 {
+    font-size: clamp(1.3rem, 4.5vw, 2rem) !important;
+    color: var(--color-primary);
+    text-align: center;
+}
+
+/* Em cards estreitos (login/registro) o título encolhe para não quebrar em 3 linhas */
+html[data-theme="chronoTrigger"] .card-body h1 {
+    font-size: clamp(1rem, 6vw, 1.4rem) !important;
+}
+
+/* Navbar = barra de status do jogo */
+html[data-theme="chronoTrigger"] .navbar {
+    background: linear-gradient(180deg, var(--color-base-100), var(--color-base-300));
+    border-bottom: var(--border) solid var(--border-color-gold);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, .4);
+    backdrop-filter: none;
+}
+
+/* Grupo de heróis, centralizado no cabeçalho — moldura de "retrato de grupo" */
+html[data-theme="chronoTrigger"] .navbar-party-frame {
+    padding: 3px;
+    border: 2px solid var(--border-color-gold);
+    background: var(--color-base-300);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, .5);
+    line-height: 0;
+}
+
+html[data-theme="chronoTrigger"] .navbar-party {
+    display: block;
+    height: 3.25rem;
+    width: auto;
+    image-rendering: pixelated;
+}
+
+/* Telas estreitas: encolhe um pouco a barra para os botões não colidirem */
+@media (max-width: 639px) {
+    html[data-theme="chronoTrigger"] .navbar {
+        padding-inline: .5rem;
+    }
+
+    html[data-theme="chronoTrigger"] .navbar :where(.btn-sm) {
+        padding-inline: .6rem;
+        font-size: .95rem;
+    }
+
+    html[data-theme="chronoTrigger"] .navbar-end {
+        gap: .35rem !important;
+    }
+}
+
+html[data-theme="chronoTrigger"] .navbar .text-xl {
+    font-family: var(--font-pixel);
+    font-size: 1rem;
+    color: var(--color-primary);
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, .5);
+}
+
+html[data-theme="chronoTrigger"] .navbar .text-sm {
+    font-family: var(--font-retro);
+    font-size: 1.25rem;
+    color: var(--text-12);
+}
+
+/* Cards — janelas de diálogo com cantos "em degrau" (pixel corners) */
+html[data-theme="chronoTrigger"] :where(.card) {
+    --step: var(--pixel-step);
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(180deg, var(--color-base-50), var(--color-base-100));
+    color: var(--text-12);
+    border: var(--border) solid var(--border-color-cyan);
+    border-radius: 0;
+    box-shadow: none !important;
+    transition: none;
+    clip-path: polygon(0 var(--step),
+            var(--step) var(--step),
+            var(--step) 0,
+            calc(100% - var(--step)) 0,
+            calc(100% - var(--step)) var(--step),
+            100% var(--step),
+            100% calc(100% - var(--step)),
+            calc(100% - var(--step)) calc(100% - var(--step)),
+            calc(100% - var(--step)) 100%,
+            var(--step) 100%,
+            var(--step) calc(100% - var(--step)),
+            0 calc(100% - var(--step)));
+}
+
+/* Sombra "em degrau" do card feita com pseudo-elemento (em vez de filter:
+   drop-shadow). filter/backdrop-filter em um elemento força o Chrome a
+   renderizar todo o texto dentro dele sem subpixel anti-aliasing, deixando
+   as letras borradas — por isso a navbar já usa backdrop-filter: none.
+   Aqui a sombra fica num ::before atrás do card, sem tocar o texto. */
+html[data-theme="chronoTrigger"] :where(.card)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, .55);
+    clip-path: inherit;
+    transform: translate(6px, 6px);
+}
+
+html[data-theme="chronoTrigger"] :where(.card .card-body) {
+    padding: 1.1rem 1.25rem 1.4rem;
+}
+
+/* INPUTS / TEXTAREAS — campos de "diário de aventura" */
+html[data-theme="chronoTrigger"] :where(.input, .textarea) {
+    font-family: var(--font-retro);
+    font-size: 1.3rem;
+    border-radius: var(--radius-field);
+    border: 2px solid var(--border-color-soft);
+    background: var(--color-base-300);
+    color: var(--text-12);
+}
+
+html[data-theme="chronoTrigger"] :where(.textarea) {
+    padding: .625rem .75rem;
+}
+
+html[data-theme="chronoTrigger"] .card :where(.textarea) {
+    padding: .5625rem .75rem;
+}
+
+html[data-theme="chronoTrigger"] :where(.input:focus, .textarea:focus) {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+}
+
+html[data-theme="chronoTrigger"] ::placeholder {
+    color: var(--text-10);
+    opacity: .85;
+    font-style: italic;
+}
+
+/* LINKS */
+html[data-theme="chronoTrigger"] a {
+    color: var(--link);
+}
+
+html[data-theme="chronoTrigger"] a:hover {
+    color: var(--link-hover);
+}
+
+html[data-theme="chronoTrigger"] :where(a.btn) {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* BOTÕES — estilo "cursor de menu" de RPG */
+html[data-theme="chronoTrigger"] :where(.btn) {
+    font-family: var(--font-retro);
+    font-size: 1.25rem;
+    letter-spacing: .5px;
+    border-radius: 2px;
+    border: 2px solid var(--border-color-gold);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, .55);
+    padding-inline: 1.1rem;
+    line-height: 1.25rem;
+    transition: transform .07s steps(2), box-shadow .07s steps(2);
+    position: relative;
+}
+
+html[data-theme="chronoTrigger"] :where(.btn:hover) {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, .55);
+}
+
+html[data-theme="chronoTrigger"] :where(.btn:active) {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, .55);
+}
+
+html[data-theme="chronoTrigger"] :where(.btn-primary),
+html[data-theme="chronoTrigger"] :where(a.btn-primary) {
+    background: linear-gradient(180deg, #ffe27a, var(--color-primary));
+    color: var(--color-primary-content);
+    border-color: #a3760a;
+}
+
+html[data-theme="chronoTrigger"] :where(.btn-primary:hover),
+html[data-theme="chronoTrigger"] :where(a.btn-primary:hover) {
+    background: linear-gradient(180deg, #fff0b0, #ffd75c);
+}
+
+html[data-theme="chronoTrigger"] :where(.btn-ghost),
+html[data-theme="chronoTrigger"] :where(a.btn-ghost) {
+    color: var(--text-12);
+    border: 2px solid var(--border-color-soft);
+    background: rgba(0, 0, 0, .18);
+}
+
+html[data-theme="chronoTrigger"] :where(.btn-ghost:hover),
+html[data-theme="chronoTrigger"] :where(a.btn-ghost:hover) {
+    background: rgba(67, 217, 232, .12);
+    border-color: var(--border-color-cyan);
+}
+
+html[data-theme="chronoTrigger"] :where(.btn-sm) {
+    height: 2.35rem;
+    min-height: 2.35rem;
+    padding-inline: .9rem;
+    font-size: 1.1rem;
+}
+
+html[data-theme="chronoTrigger"] :where(.btn-xs) {
+    height: 1.9rem;
+    min-height: 1.9rem;
+    padding-inline: .65rem;
+    font-size: 1rem;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, .55);
+}
+
+html[data-theme="chronoTrigger"] :where(.btn-xs:hover) {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, .55);
+}
+
+/* Toast — banner dourado de "missão concluída" */
+html[data-theme="chronoTrigger"] :where(.toast .alert-success) {
+    background: linear-gradient(180deg, #ffe27a, #ffcb3d);
+    color: #241238;
+    border: 3px solid #8a6408;
+    border-radius: 0;
+    font-family: var(--font-pixel);
+    font-size: .8rem;
+    line-height: 1.6;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .5);
+}
+
+html[data-theme="chronoTrigger"] :where(.link-primary) {
+    color: var(--color-primary) !important;
+}
+
+html[data-theme="chronoTrigger"] :where(.link-primary:hover) {
+    color: #fff0b0 !important;
+}
+
+/* Timestamps / separadores */
+html[data-theme="chronoTrigger"] .text-base-content\/60 {
+    color: var(--text-10) !important;
+    font-style: italic;
+}
+
+/* O Tailwind text-sm/text-xs padrão é pequeno demais para o tema retrô */
+html[data-theme="chronoTrigger"] .text-sm {
+    font-size: 1.1rem;
+}
+
+html[data-theme="chronoTrigger"] .text-xs {
+    font-size: 1rem;
+}
+
+/* Footer = barra de status inferior */
+html[data-theme="chronoTrigger"] footer.footer {
+    background: var(--color-base-300);
+    border-top: var(--border) solid var(--border-color-gold);
+    color: var(--text-10);
+    font-family: var(--font-retro);
+    letter-spacing: .5px;
+    font-size: 1.15rem;
+}
+
+html[data-theme="chronoTrigger"] a:not(.btn) {
+    color: var(--link);
+}
+
+html[data-theme="chronoTrigger"] a:not(.btn):hover {
+    color: var(--link-hover);
+}
+
+html[data-theme="chronoTrigger"] a.btn,
+html[data-theme="chronoTrigger"] a.btn:visited {
+    color: inherit !important;
+    text-decoration: none;
+}
+
+html[data-theme="chronoTrigger"] a.btn-ghost:visited {
+    color: var(--text-12) !important;
+}
+
+html[data-theme="chronoTrigger"] a.btn-primary,
+html[data-theme="chronoTrigger"] a.btn-primary:visited {
+    color: var(--color-primary-content) !important;
+}
+
+html[data-theme="chronoTrigger"] a.btn-ghost:hover {
+    color: var(--text-12) !important;
+}
+
+/* Inputs cheios de largura dentro de cards/labels */
+html[data-theme="chronoTrigger"] .card .input,
+html[data-theme="chronoTrigger"] .card .textarea,
+html[data-theme="chronoTrigger"] .floating-label>input,
+html[data-theme="chronoTrigger"] .floating-label>.input,
+html[data-theme="chronoTrigger"] .floating-label>.textarea {
+    width: 100%;
+}
+
+html[data-theme="chronoTrigger"] .floating-label>span {
+    font-family: var(--font-retro);
+    font-size: 1.1rem;
+    color: var(--text-10);
+}
+
+/* Divisor "OU" como um separador de menu de RPG */
+html[data-theme="chronoTrigger"] .divider {
+    font-family: var(--font-pixel);
+    font-size: .7rem;
+    color: var(--text-10);
+}
+
+html[data-theme="chronoTrigger"] .divider:before,
+html[data-theme="chronoTrigger"] .divider:after {
+    background-color: var(--border-color-soft);
+}
+
+/* Nome do autor de cada chirp, em destaque dourado */
+html[data-theme="chronoTrigger"] .chirp-author {
+    font-family: var(--font-pixel);
+    font-size: .8rem;
+    letter-spacing: .3px;
+    color: var(--color-primary);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
+}
+
+/* Avatares com moldura dourada de retrato */
+html[data-theme="chronoTrigger"] .avatar img {
+    border: 3px solid var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-base-300);
+}
+
+/* Pôster de Chrono Trigger ao fundo das telas de Entrar / Inscrever-se.
+   Só nessas duas telas: a classe é .hero-poster (não .hero puro), que
+   também é usado no estado vazio do feed sem levar o pôster.
+
+   Sem gradiente escurecendo por cima (mantém brilho original). A
+   arte-fonte tem 900px de largura nativa; aqui ela cresce um pouco além
+   disso (até 1200px, via clamp()) para ocupar mais espaço vertical e
+   horizontal como pedido — leve upscaling, mas ainda nítida o bastante
+   pro tamanho de exibição. Sempre ancorada à direita para não brigar
+   com o card, que fica à esquerda (ver .hero-content nas views de
+   login/registro).
+
+   O .hero-poster também "escapa" do <main class="container mx-auto">
+   que o envolve (esse container tem largura máxima e fica centralizado
+   na página) — sem isso, o pôster e o deslocamento do card ficam presos
+   dentro dessa faixa central estreita e todo o conjunto parece
+   "centralizado" mesmo com o card deslocado para a esquerda dentro dela. */
+html[data-theme="chronoTrigger"] .hero-poster {
+    position: relative;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    background-color: var(--color-base-200);
+    background-image: url('../../public/images/chrono-trigger/title-poster.webp');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: clamp(500px, 55vw, 1200px) auto;
+    border-radius: 0;
+}
+
+/* Ícone do estado vazio (feed sem pensamentos) */
+html[data-theme="chronoTrigger"] .hero svg {
+    color: var(--color-primary);
+}
+
+/* Cursor piscante decorativo (usado como acento visual opcional) */
+html[data-theme="chronoTrigger"] .rpg-cursor {
+    display: inline-block;
+    animation: cursor-blink 1s steps(1) infinite;
+    color: var(--color-primary);
+}
+
+/* Scrollbar temática (WebKit) */
+html[data-theme="chronoTrigger"] ::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+html[data-theme="chronoTrigger"] ::-webkit-scrollbar-track {
+    background: var(--color-base-300);
+}
+
+html[data-theme="chronoTrigger"] ::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border: 3px solid var(--color-base-300);
+}
+
+/* Seleção de texto temática */
+html[data-theme="chronoTrigger"] ::selection {
+    background: var(--color-primary);
+    color: var(--color-primary-content);
+}

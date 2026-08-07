@@ -43,7 +43,7 @@ class ChirpController extends Controller
         // Use the authenticated user
         auth()->user()->chirps()->create($validated);
 
-        return redirect('/')->with('success', 'Your chirp has been posted!');
+        return redirect('/')->with('success', 'Seu pensamento foi compartilhado!');
     }
 
     public function edit(Chirp $chirp)
@@ -63,7 +63,7 @@ class ChirpController extends Controller
 
         $chirp->update($validated);
 
-        return redirect('/')->with('success', 'Chirp updated!');
+        return redirect('/')->with('success', 'Pensamento atualizado!');
     }
 
     public function destroy(Chirp $chirp)
@@ -72,6 +72,6 @@ class ChirpController extends Controller
 
         $chirp->delete();
 
-        return redirect('/')->with('success', 'Chirp deleted!');
+        return redirect('/')->with('success', 'Pensamento excluído!');
     }
 }
