@@ -6,7 +6,7 @@
     <div class="hero hero-poster min-h-[calc(100vh-16rem)]">
         <div class="hero-content flex-row max-w-none w-full px-4">
             <div class="hero-poster-card-col">
-                <div class="card w-full max-w-96 bg-base-100 align-center">
+                <div class="card w-full max-w-96 bg-base-100">
                     <div class="card-body">
                         <h1 class="text-3xl font-bold text-center mb-6">✦ Bem-vindo ✦</h1>
 

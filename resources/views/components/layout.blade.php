@@ -62,7 +62,7 @@
 
     <footer class="footer footer-center p-5 bg-base-300 text-base-content text-xs">
         <div>
-            <p>© 2026 Primeiro Projeto - Feito com Laravel - Daniel Moraes!</p>
+            <p>© 2026 Primeiro Projeto Feito com Laravel - Daniel Moraes!</p>
         </div>
     </footer>
 </body>

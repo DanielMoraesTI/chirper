@@ -7,14 +7,14 @@
         <div class="hero-content flex-row max-w-none w-full px-4">
             <div class="hero-poster-card-col">
                 <div class="card w-full max-w-96 bg-base-100">
-                    <div class="card-body">
-                        <h1 class="text-3xl font-bold text-center mb-6">✦ Criar Conta ✦</h1>
+                    <div class="card-body register-card-body">
+                        <h1 class="text-3xl font-bold text-center leading-tight mb-1">✦ Criar Conta ✦</h1>
 
                         <form method="POST" action="/register">
                             @csrf
 
                             <!-- Name -->
-                            <label class="floating-label mb-6">
+                            <label class="floating-label mb-1">
                                 <input type="text"
                                        name="name"
                                        placeholder="João da Silva"
@@ -25,13 +25,13 @@
                                 <span>Nome</span>
                             </label>
                             @error('name')
-                                <div class="label -mt-4 mb-2">
+                                <div class="label -mt-1 mb-1">
                                     <span class="label-text-alt text-error">{{ $message }}</span>
                                 </div>
                             @enderror
 
                             <!-- Email -->
-                            <label class="floating-label mb-6">
+                            <label class="floating-label mb-1">
                                 <input type="email"
                                        name="email"
                                        placeholder="email@exemplo.com"
@@ -41,13 +41,13 @@
                                 <span>E-mail</span>
                             </label>
                             @error('email')
-                                <div class="label -mt-4 mb-2">
+                                <div class="label -mt-1 mb-1">
                                     <span class="label-text-alt text-error">{{ $message }}</span>
                                 </div>
                             @enderror
 
                             <!-- Password -->
-                            <label class="floating-label mb-6">
+                            <label class="floating-label mb-1">
                                 <input type="password"
                                        name="password"
                                        placeholder="••••••••"
@@ -56,24 +56,24 @@
                                 <span>Senha</span>
                             </label>
                             @error('password')
-                                <div class="label -mt-4 mb-2">
+                                <div class="label -mt-1 mb-1">
                                     <span class="label-text-alt text-error">{{ $message }}</span>
                                 </div>
                             @enderror
 
                             <!-- Avatar (personagem) -->
-                            <div class="mb-2">
-                                <span class="label-text block mb-2">Escolha seu personagem</span>
+                            <div class="register-avatar-picker mb-2">
+                                <span class="label-text block mb-1">Escolha seu personagem</span>
                                 <x-avatar-picker />
                             </div>
                             @error('avatar')
-                                <div class="label -mt-2 mb-2">
+                                <div class="label -mt-1 mb-1">
                                     <span class="label-text-alt text-error">{{ $message }}</span>
                                 </div>
                             @enderror
 
                             <!-- Password Confirmation -->
-                            <label class="floating-label mb-6">
+                            <label class="floating-label mb-1">
                                 <input type="password"
                                        name="password_confirmation"
                                        placeholder="••••••••"
@@ -83,14 +83,14 @@
                             </label>
 
                             <!-- Submit Button -->
-                            <div class="form-control mt-8">
+                            <div class="form-control mt-2">
                                 <button type="submit" class="btn btn-primary btn-sm w-full">
                                     ⚔️ Cadastrar
                                 </button>
                             </div>
                         </form>
 
-                        <div class="divider">OU</div>
+                        <div class="divider my-1">OU</div>
                         <p class="text-center text-sm">
                             Já tem uma conta?
                             <a href="/login" class="link link-primary">Entrar</a>

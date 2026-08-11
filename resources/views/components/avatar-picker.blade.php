@@ -26,7 +26,7 @@
     </div>
 
     <p class="text-xs text-base-content/60 mt-2">
-        Toque em um personagem para conhecer sua história antes de escolher.
+        
     </p>
 
     <dialog class="modal avatar-lore-modal">

@@ -25,9 +25,7 @@ function initAvatarPicker(picker) {
         if (!input) return;
 
         label.addEventListener('click', (event) => {
-            // Já selecionado: deixa o clique se comportar normalmente.
-            if (input.checked) return;
-
+            // Mesmo já selecionado, o clique reabre o modal de apresentação.
             event.preventDefault();
             pendingInput = input;
 
